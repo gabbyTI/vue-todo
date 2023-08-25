@@ -1,5 +1,25 @@
+<template>
+  <main>
+    <h1>Create Todos</h1>
+    <todo-creator @create-todo="createTodo"></todo-creator>
+    <ul class="todo-list" v-if="todoList.length > 0">
+      <todo-item
+        v-for="(todo, key) in todoList"
+        :todo="todo"
+        :key="key"
+      ></todo-item>
+    </ul>
+    <p class="todos-msg" v-else>
+      <Icon icon="noto-v1:sad-but-relieved-face" color="#41b080" width="22" />
+      <span>You have no todo's to complete! Add one!</span>
+    </p>
+  </main>
+</template>
+
 <script setup>
+import { Icon } from '@iconify/vue';
 import TodoCreator from '../components/TodoCreator.vue';
+import TodoItem from '../components/TodoItem.vue';
 import { ref } from 'vue';
 import { uid } from 'uid';
 
@@ -15,13 +35,6 @@ const createTodo = (todo) => {
 };
 </script>
 
-<template>
-  <main>
-    <h1>Create Todos</h1>
-    <todo-creator @create-todo="createTodo"></todo-creator>
-  </main>
-</template>
-
 <style scoped lang="scss">
 main {
   display: flex;
@@ -34,6 +47,32 @@ main {
   h1 {
     margin-bottom: 16px;
     text-align: center;
+  }
+
+  ul {
+    display: block;
+    list-style-type: disc;
+    margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+    padding-inline-start: 0px;
+  }
+
+  .todo-list {
+    display: flex;
+    flex-direction: column;
+    list-style: none;
+    margin-top: 24px;
+    gap: 20px;
+  }
+
+  .todos-msg {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
   }
 }
 </style>
