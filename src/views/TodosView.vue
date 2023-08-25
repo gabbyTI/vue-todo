@@ -7,6 +7,7 @@
         v-for="(todo, key) in todoList"
         :todo="todo"
         :key="key"
+        @mark-task="markTask"
       ></todo-item>
     </ul>
     <p class="todos-msg" v-else>
@@ -24,6 +25,12 @@ import { ref } from 'vue';
 import { uid } from 'uid';
 
 const todoList = ref([]);
+
+const markTask = (id, todo) => {
+  todo.isCompleted = !todo.isCompleted;
+  todoList.value[id] = todo;
+  console.log(todoList.value[id]);
+};
 
 const createTodo = (todo) => {
   todoList.value.push({

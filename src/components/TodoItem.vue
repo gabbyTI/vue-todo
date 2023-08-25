@@ -1,9 +1,9 @@
 <template>
   <li>
-    <input type="checkbox" :checked="todo.isCompleted" />
+    <input type="checkbox" :checked="todo.isCompleted" @click="markTask" />
     <div class="todo">
       <input v-if="todo.isEditting" type="text" :value="todo.todo" />
-      <span v-else>
+      <span v-else :class="{ 'strike-through': todo.isCompleted }">
         {{ todo.todo }}
       </span>
     </div>
@@ -38,6 +38,11 @@ const props = defineProps({
     // },
   },
 });
+
+const emit = defineEmits(['markTask']);
+const markTask = () => {
+  emit('markTask', props.todo.id, props.todo);
+};
 </script>
 
 <style lang="scss" scoped>
@@ -68,7 +73,9 @@ li {
       background-color: #41b080;
     }
   }
-
+  .strike-through {
+    text-decoration: line-through;
+  }
   .todo {
     flex: 1;
 

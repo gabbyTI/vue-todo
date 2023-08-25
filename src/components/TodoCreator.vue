@@ -15,12 +15,12 @@ const todoState = reactive({
   errMsg: '',
 });
 
-const emit = defineEmits('create-todo');
+const emit = defineEmits('createTodo');
 
 function createTodo() {
   todoState.invalid = null;
   if (todoState.todo !== '') {
-    emit('create-todo', todoState.todo);
+    emit('createTodo', todoState.todo);
     todoState.todo = '';
     return;
   }
