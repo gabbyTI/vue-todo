@@ -11,6 +11,7 @@
         @mark-task="markTask"
         @edit-todo="toggleEditTodo"
         @update-todo="updateTodo"
+        @delete-todo="deleteTodo"
       ></todo-item>
     </ul>
     <p class="todos-msg" v-else>
@@ -40,6 +41,13 @@ const toggleEditTodo = (index) => {
 
 const updateTodo = (index, todoVal) => {
   todoList.value[index].todo = todoVal;
+};
+
+const deleteTodo = (todoId) => {
+  // todoList.value.splice(index, 1);
+  todoList.value = todoList.value.filter((todo) => {
+    todo.id !== todoId;
+  });
 };
 
 const createTodo = (todo) => {

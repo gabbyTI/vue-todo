@@ -33,7 +33,13 @@
         width="22"
         @click="$emit('edit-todo', index)"
       />
-      <Icon icon="ph:trash" class="icon" color="#f95e5e" width="22" />
+      <Icon
+        icon="ph:trash"
+        class="icon"
+        color="#f95e5e"
+        width="22"
+        @click="$emit('delete-todo', todo.id)"
+      />
     </div>
   </li>
 </template>
@@ -54,7 +60,12 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['mark-task', 'edit-todo', 'update-todo']);
+const emit = defineEmits([
+  'mark-task',
+  'edit-todo',
+  'update-todo',
+  'delete-todo',
+]);
 </script>
 
 <style lang="scss" scoped>
