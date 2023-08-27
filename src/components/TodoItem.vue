@@ -38,7 +38,7 @@
         class="icon"
         color="#f95e5e"
         width="22"
-        @click="$emit('delete-todo', todo.id)"
+        @click="$emit('delete-todo', index)"
       />
     </div>
   </li>

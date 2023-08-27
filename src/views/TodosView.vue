@@ -30,24 +30,40 @@ import { uid } from 'uid';
 
 const todoList = ref([]);
 
+const fetchTodoList = () => {
+  const savedTodoList = JSON.parse(localStorage.getItem('todoList'));
+  if (savedTodoList) {
+    todoList.value = savedTodoList;
+  }
+};
+
+fetchTodoList();
+
+const setTodoListLocalStorage = () => {
+  localStorage.setItem('todoList', JSON.stringify(todoList.value));
+};
+
 const markTask = (index) => {
   todoList.value[index].isCompleted = !todoList.value[index].isCompleted;
-  console.log(index);
+  setTodoListLocalStorage();
 };
 
 const toggleEditTodo = (index) => {
   todoList.value[index].isEditting = !todoList.value[index].isEditting;
+  setTodoListLocalStorage();
 };
 
 const updateTodo = (index, todoVal) => {
   todoList.value[index].todo = todoVal;
+  setTodoListLocalStorage();
 };
 
-const deleteTodo = (todoId) => {
-  // todoList.value.splice(index, 1);
-  todoList.value = todoList.value.filter((todo) => {
-    todo.id !== todoId;
-  });
+const deleteTodo = (index) => {
+  todoList.value.splice(index, 1);
+  // todoList.value = todoList.value.filter((todo) => {
+  //   todo.id !== todoId;
+  // });
+  setTodoListLocalStorage();
 };
 
 const createTodo = (todo) => {
@@ -57,6 +73,7 @@ const createTodo = (todo) => {
     isCompleted: null,
     isEditting: null,
   });
+  setTodoListLocalStorage();
 };
 </script>
 
