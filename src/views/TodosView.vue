@@ -9,6 +9,8 @@
         :key="index"
         :index="index"
         @mark-task="markTask"
+        @edit-todo="toggleEditTodo"
+        @update-todo="updateTodo"
       ></todo-item>
     </ul>
     <p class="todos-msg" v-else>
@@ -30,6 +32,14 @@ const todoList = ref([]);
 const markTask = (index) => {
   todoList.value[index].isCompleted = !todoList.value[index].isCompleted;
   console.log(index);
+};
+
+const toggleEditTodo = (index) => {
+  todoList.value[index].isEditting = !todoList.value[index].isEditting;
+};
+
+const updateTodo = (index, todoVal) => {
+  todoList.value[index].todo = todoVal;
 };
 
 const createTodo = (todo) => {

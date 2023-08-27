@@ -3,10 +3,15 @@
     <input
       type="checkbox"
       :checked="todo.isCompleted"
-      @input="$emit('markTask', index)"
+      @input="$emit('mark-task', index)"
     />
     <div class="todo">
-      <input v-if="todo.isEditting" type="text" :value="todo.todo" />
+      <input
+        v-if="todo.isEditting"
+        type="text"
+        :value="todo.todo"
+        @input="$emit('update-todo', index, $event.target.value)"
+      />
       <span v-else :class="{ 'task-completed': todo.isCompleted }">
         {{ todo.todo }}
       </span>
@@ -18,6 +23,7 @@
         color="#41b080"
         width="22"
         class="icon"
+        @click="$emit('edit-todo', index)"
       />
       <Icon
         v-else
@@ -25,6 +31,7 @@
         class="icon"
         color="#41b080"
         width="22"
+        @click="$emit('edit-todo', index)"
       />
       <Icon icon="ph:trash" class="icon" color="#f95e5e" width="22" />
     </div>
@@ -47,10 +54,7 @@ const props = defineProps({
   },
 });
 
-const emit = defineEmits(['markTask']);
-// const markTask = () => {
-//   emit('markTask', props.todo.id, props.todo);
-// };
+const emit = defineEmits(['mark-task', 'edit-todo', 'update-todo']);
 </script>
 
 <style lang="scss" scoped>
@@ -89,7 +93,7 @@ li {
 
     input[type='text'] {
       width: 100%;
-      padding: 2px 6px;
+      padding: 2px 2px;
       border: 2px solid #41b080;
     }
   }
