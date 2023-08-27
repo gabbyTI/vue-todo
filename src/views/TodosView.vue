@@ -25,10 +25,20 @@
 import { Icon } from '@iconify/vue';
 import TodoCreator from '../components/TodoCreator.vue';
 import TodoItem from '../components/TodoItem.vue';
-import { ref } from 'vue';
+import { ref, watch } from 'vue';
 import { uid } from 'uid';
 
 const todoList = ref([]);
+
+watch(
+  todoList,
+  () => {
+    setTodoListLocalStorage();
+  },
+  {
+    deep: true,
+  }
+);
 
 const fetchTodoList = () => {
   const savedTodoList = JSON.parse(localStorage.getItem('todoList'));
@@ -45,17 +55,14 @@ const setTodoListLocalStorage = () => {
 
 const markTask = (index) => {
   todoList.value[index].isCompleted = !todoList.value[index].isCompleted;
-  setTodoListLocalStorage();
 };
 
 const toggleEditTodo = (index) => {
   todoList.value[index].isEditting = !todoList.value[index].isEditting;
-  setTodoListLocalStorage();
 };
 
 const updateTodo = (index, todoVal) => {
   todoList.value[index].todo = todoVal;
-  setTodoListLocalStorage();
 };
 
 const deleteTodo = (index) => {
@@ -63,7 +70,6 @@ const deleteTodo = (index) => {
   // todoList.value = todoList.value.filter((todo) => {
   //   todo.id !== todoId;
   // });
-  setTodoListLocalStorage();
 };
 
 const createTodo = (todo) => {
@@ -73,7 +79,6 @@ const createTodo = (todo) => {
     isCompleted: null,
     isEditting: null,
   });
-  setTodoListLocalStorage();
 };
 </script>
 
