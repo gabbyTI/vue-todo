@@ -4,9 +4,10 @@
     <todo-creator @create-todo="createTodo"></todo-creator>
     <ul class="todo-list" v-if="todoList.length > 0">
       <todo-item
-        v-for="(todo, key) in todoList"
+        v-for="(todo, index) in todoList"
         :todo="todo"
-        :key="key"
+        :key="index"
+        :index="index"
         @mark-task="markTask"
       ></todo-item>
     </ul>
@@ -26,10 +27,9 @@ import { uid } from 'uid';
 
 const todoList = ref([]);
 
-const markTask = (id, todo) => {
-  todo.isCompleted = !todo.isCompleted;
-  todoList.value[id] = todo;
-  console.log(todoList.value[id]);
+const markTask = (index) => {
+  todoList.value[index].isCompleted = !todoList.value[index].isCompleted;
+  console.log(index);
 };
 
 const createTodo = (todo) => {
